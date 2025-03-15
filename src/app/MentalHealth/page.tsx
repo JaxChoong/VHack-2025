@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
-import MoodTracker from '../components/MoodTracker';
-import BreathingExercises from '../components/BreathingExercises';
-import Mindfulness from '../components/Mindfulness';
+import MoodTracker from '../../components/MoodTracker';
+import BreathingExercises from '../../components/BreathingExercises';
+import Mindfulness from '../../components/Mindfulness';
 
 function MentalHealth() {
     const [activeSection, setActiveSection] = useState<'mood' | 'breathing' | 'mindfulness'>('mood');
