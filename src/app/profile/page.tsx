@@ -41,9 +41,6 @@ export default function Profile() {
             alt="Profile"
             className="w-24 h-24 rounded-full"
           />
-          <button className="absolute bottom-0 right-0 p-2 bg-primary text-primary-foreground rounded-full">
-            <User className="h-4 w-4" />
-          </button>
         </div>
         <div>
           <h1 className="text-3xl font-bold">{personalInfo.name}</h1>
