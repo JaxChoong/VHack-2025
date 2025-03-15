@@ -41,8 +41,8 @@ function BreathingExercises() {
 
   return (
     <div className="space-y-8">
-      <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">4-7-8 Breathing Exercise</h2>
+      <div className=" rounded-xl shadow-md p-8">
+        <h2 className="text-2xl font-semibold text-white-800 mb-6">4-7-8 Breathing Exercise</h2>
         <div className="text-center space-y-6">
           <div className="relative w-48 h-48 mx-auto">
             <div
@@ -76,7 +76,7 @@ function BreathingExercises() {
             </button>
             <button
               onClick={resetExercise}
-              className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-white-300 hover:bg-white-50 transition-colors"
             >
               <RefreshCw className="w-5 h-5" />
               <span>Reset</span>
@@ -85,26 +85,26 @@ function BreathingExercises() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Relaxation Techniques</h2>
+      <div className=" rounded-xl shadow-md p-8 border-2 border-white">
+        <h2 className="text-2xl font-semibold text-white-800 mb-4">Relaxation Techniques</h2>
         <div className="space-y-6">
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-gray-700">Progressive Muscle Relaxation</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-medium text-white-700">Progressive Muscle Relaxation</h3>
+            <p className="text-white-600">
               Tense and then relax each muscle group in your body, starting from your toes and moving up to your head.
               Hold the tension for 5 seconds, then release for 10 seconds.
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-gray-700">Body Scan Meditation</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-medium text-white-700">Body Scan Meditation</h3>
+            <p className="text-white-600">
               Lie down comfortably and focus your attention on different parts of your body, from your feet to your head.
               Notice any sensations without judgment.
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-gray-700">Visualization</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-medium text-white-700">Visualization</h3>
+            <p className="text-white-600">
               Imagine a peaceful, calming place in detail. Focus on the sights, sounds, smells, and textures of your
               chosen sanctuary.
             </p>

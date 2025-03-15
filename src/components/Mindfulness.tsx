@@ -46,55 +46,55 @@ function Mindfulness() {
 
   return (
     <div className="space-y-8">
-      <div className="bg-white rounded-xl shadow-md p-8">
+      <div className=" rounded-xl shadow-md p-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">Daily Affirmation</h2>
+          <h2 className="text-2xl font-semibold text-white-800">Daily Affirmation</h2>
           <button
             onClick={refreshMessages}
-            className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+            className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-white-300 hover:bg-white-50 transition-colors"
           >
             <RefreshCw className="w-5 h-5" />
             <span>New Message</span>
           </button>
         </div>
         <div className="bg-gradient-to-r from-purple-100 to-blue-100 rounded-lg p-6 mb-8">
-          <p className="text-xl font-medium text-gray-800 text-center italic">
+          <p className="text-xl font-medium text-black text-center italic">
             "{currentAffirmation}"
           </p>
         </div>
 
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Mindfulness Practice</h2>
+        <h2 className="text-2xl font-semibold text-white-800 mb-4">Mindfulness Practice</h2>
         <div className="bg-gradient-to-r from-green-100 to-teal-100 rounded-lg p-6">
-          <p className="text-lg text-gray-800">
+          <p className="text-lg text-black text-center">
             {currentPrompt}
           </p>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">Mindfulness Tips</h2>
+      <div className=" rounded-xl shadow-md p-8 border-2 border-white">
+        <h2 className="text-2xl font-semibold text-white-800 mb-6">Mindfulness Tips</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-gray-700">Start Small</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-medium text-white-700">Start Small</h3>
+            <p className="text-white-600">
               Begin with just 1-2 minutes of mindfulness practice. Gradually increase the duration as you become more comfortable.
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-gray-700">Create a Routine</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-medium text-white-700">Create a Routine</h3>
+            <p className="text-white-600">
               Practice mindfulness at the same time each day to build a sustainable habit.
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-gray-700">Be Patient</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-medium text-white-700">Be Patient</h3>
+            <p className="text-white-600">
               Don't judge yourself when your mind wanders. Simply notice it and gently return your attention to the present moment.
             </p>
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-gray-700">Use Reminders</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-medium text-white-700">Use Reminders</h3>
+            <p className="text-white-600">
               Set gentle reminders throughout the day to take mindful breaks and check in with yourself.
             </p>
           </div>
