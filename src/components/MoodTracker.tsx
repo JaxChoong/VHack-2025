@@ -43,13 +43,13 @@ function MoodTracker() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="rounded-xl shadow-md p-6  border-2 border-white">
+    <div className="space-y-8 ">
+      <div className="rounded-xl shadow-md p-6  border-2 border-white ">
         <h2 className="text-2xl font-semibold text-white-800 mb-4">Mood Calendar</h2>
         <div className="text-center mb-4">
           <h3 className="text-xl font-medium">{format(selectedDate, 'MMMM yyyy')}</h3>
         </div>
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-7 gap-2 ">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
             <div key={day} className="text-center font-medium text-white-500 py-2 ">
               {day}
@@ -67,19 +67,19 @@ function MoodTracker() {
                   <div className="flex space-x-1">
                     <button
                       onClick={() => setMoodForDate(day, 'happy')}
-                      className="hover:scale-110 transition-transform"
+                      className="hover:scale-110 transition-transform cursor-pointer"
                     >
                       <SmilePlus className="w-6 h-6 text-gray-400 hover:text-green-500" />
                     </button>
                     <button
                       onClick={() => setMoodForDate(day, 'neutral')}
-                      className="hover:scale-110 transition-transform"
+                      className="hover:scale-110 transition-transform cursor-pointer"
                     >
                       <Meh className="w-6 h-6 text-gray-400 hover:text-yellow-500" />
                     </button>
                     <button
                       onClick={() => setMoodForDate(day, 'sad')}
-                      className="hover:scale-110 transition-transform"
+                      className="hover:scale-110 transition-transform cursor-pointer"
                     >
                       <Frown className="w-6 h-6 text-gray-400 hover:text-red-500" />
                     </button>

@@ -60,7 +60,7 @@ function BreathingExercises() {
           <div className="flex justify-center space-x-4">
             <button
               onClick={() => setIsBreathing(!isBreathing)}
-              className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors cursor-pointer"
             >
               {isBreathing ? (
                 <>
@@ -76,7 +76,7 @@ function BreathingExercises() {
             </button>
             <button
               onClick={resetExercise}
-              className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-white-300 hover:bg-white-50 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-white-300 hover:bg-white-50 transition-colors cursor-pointer"
             >
               <RefreshCw className="w-5 h-5" />
               <span>Reset</span>

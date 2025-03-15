@@ -51,7 +51,7 @@ function Mindfulness() {
           <h2 className="text-2xl font-semibold text-white-800">Daily Affirmation</h2>
           <button
             onClick={refreshMessages}
-            className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-white-300 hover:bg-white-50 transition-colors"
+            className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-white-300 hover:bg-white-50 transition-colors cursor-pointer"
           >
             <RefreshCw className="w-5 h-5" />
             <span>New Message</span>

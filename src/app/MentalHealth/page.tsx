@@ -15,19 +15,19 @@ function MentalHealth() {
           {activeSection === 'mood' && (
             <div className="space-y-8">
               <MoodTracker />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
                 <button
                   onClick={() => setActiveSection('breathing')}
-                  className=" p-6 rounded-xl border-2 border-white hover:bg-white transition-colors"
+                  className=" p-6 rounded-xl border-2 border-white hover:bg-white transition-colors shadow-md cursor-pointer"
                 >
                   <h3 className="text-xl font-semibold text-purple-600 mb-2">Breathing Exercises</h3>
                   <p className="text-gray-600">Practice guided breathing techniques to reduce stress and anxiety.</p>
                 </button>
                 <button
                   onClick={() => setActiveSection('mindfulness')}
-                  className=" p-6 rounded-xl  border-2 border-white hover:bg-white transition-colors"
+                  className=" p-6 rounded-xl  border-2 border-white hover:bg-white transition-colors shadow-md cursor-pointer"
                 >
-                  <h3 className="text-xl font-semibold text-purple-600 mb-2">Mindfulness & Affirmations</h3>
+                  <h3 className="text-xl font-semibold text-purple-600 mb-2 ">Mindfulness & Affirmations</h3>
                   <p className="text-gray-600">Explore daily affirmations and mindfulness practices for mental well-being.</p>
                 </button>
               </div>
@@ -37,7 +37,7 @@ function MentalHealth() {
             <div>
               <button
                 onClick={() => setActiveSection('mood')}
-                className="mb-6 flex items-center space-x-2 text-purple-600 hover:text-purple-800 transition-colors "
+                className="mb-6 flex items-center space-x-2 text-purple-600 hover:text-purple-800 transition-colors cursor-pointer"
               >
                 <span>← Back to Mood Tracker</span>
               </button>
