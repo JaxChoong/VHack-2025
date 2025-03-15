@@ -1,8 +1,26 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
-import { Heart, Activity, Trophy, ArrowLeft, RefreshCw, Pause } from "lucide-react";
+import { useTheme } from "next-themes";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
+import {
+  Heart,
+  Activity,
+  Trophy,
+  ArrowLeft,
+  RefreshCw,
+  Pause,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -36,6 +54,7 @@ export default function HeartHealth() {
   const [isECGView, setIsECGView] = useState(false);
   const [ecgData, setEcgData] = useState<{ time: string; value: number }[]>([]);
   const ecgIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { theme } = useTheme();
 
   // Simulate updating the last update time every 5 minutes (client-side only)
   useEffect(() => {
@@ -78,7 +97,10 @@ export default function HeartHealth() {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-4 mb-8">
-          <Link href="/" className="p-2 hover:bg-secondary rounded-full transition-colors">
+          <Link
+            href="/"
+            className="p-2 hover:bg-secondary rounded-full transition-colors"
+          >
             <ArrowLeft className="w-6 h-6" />
           </Link>
           <h1 className="text-3xl font-bold">Heart Health Monitoring</h1>
@@ -91,7 +113,11 @@ export default function HeartHealth() {
               <h2 className="text-xl font-semibold">Heart Rate</h2>
               <button
                 onClick={() => setIsECGView(!isECGView)}
-                className="ml-auto flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                className={`ml-auto flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                  theme === "dark"
+                    ? "text-white" // Dark mode styling
+                    : "text-black" // Light mode styling
+                }`}
               >
                 <Pause className="w-4 h-4" />
                 <span>{isECGView ? "Show Chart" : "Show ECG"}</span>
@@ -99,7 +125,9 @@ export default function HeartHealth() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">Current Heart Rate (BPM)</label>
+              <label className="block text-sm font-medium mb-2">
+                Current Heart Rate (BPM)
+              </label>
               <input
                 type="number"
                 value={currentHeartRate}
@@ -162,9 +190,13 @@ export default function HeartHealth() {
                   className="rounded-lg"
                 />
                 <div>
-                  <p className="text-sm text-muted-foreground">Connected to Apple Health</p>
+                  <p className="text-sm text-muted-foreground">
+                    Connected to Apple Health
+                  </p>
                   {lastUpdate && ( // Only render if lastUpdate is available
-                    <p className="text-xs text-muted-foreground">Last updated: {lastUpdate}</p>
+                    <p className="text-xs text-muted-foreground">
+                      Last updated: {lastUpdate}
+                    </p>
                   )}
                 </div>
               </div>
@@ -192,7 +224,17 @@ export default function HeartHealth() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="day" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor:
+                          theme === "dark" ? "#1e1e2e" : "#ffffff",
+                        color: theme === "dark" ? "#ffffff" : "#000000",
+                        border: "1px solid var(--border)",
+                      }}
+                      labelStyle={{
+                        color: theme === "dark" ? "#a3e635" : "#065f46",
+                      }}
+                    />
                     <Bar dataKey="minutes" fill="hsl(var(--primary))" />
                   </BarChart>
                 </ResponsiveContainer>

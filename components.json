@@ -4,11 +4,7 @@
   "rsc": true,
   "tsx": true,
   "tailwind": {
-<<<<<<< HEAD
-    "config": "",
-=======
     "config": "tailwind.config.ts",
->>>>>>> 0a6fd216f0cc829c3c1646266f03aab4c5d93a5a
     "css": "src/app/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
