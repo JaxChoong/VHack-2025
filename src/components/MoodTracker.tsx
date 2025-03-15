@@ -44,23 +44,23 @@ function MoodTracker() {
 
   return (
     <div className="space-y-8">
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Mood Calendar</h2>
+      <div className="rounded-xl shadow-md p-6  border-2 border-white">
+        <h2 className="text-2xl font-semibold text-white-800 mb-4">Mood Calendar</h2>
         <div className="text-center mb-4">
           <h3 className="text-xl font-medium">{format(selectedDate, 'MMMM yyyy')}</h3>
         </div>
         <div className="grid grid-cols-7 gap-2">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="text-center font-medium text-gray-500 py-2">
+            <div key={day} className="text-center font-medium text-white-500 py-2 ">
               {day}
             </div>
           ))}
           {days.map(day => (
             <div
               key={day.toString()}
-              className="aspect-square border rounded-lg p-2 hover:bg-purple-50 transition-colors"
+              className="aspect-square border rounded-lg p-2 hover:bg-purple-50 transition-colors hover:text-black"
             >
-              <div className="text-sm mb-1">{format(day, 'd')}</div>
+              <div className="text-sm mb-1 ">{format(day, 'd')}</div>
               <div className="flex justify-center space-x-1">
                 {getMoodIcon(getMoodForDate(day))}
                 {!getMoodForDate(day) && (
