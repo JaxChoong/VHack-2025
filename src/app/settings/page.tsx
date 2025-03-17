@@ -2,17 +2,20 @@
 
 import React, { useState } from 'react';
 import { Bell, Lock, User, Shield, Calendar, BarChart, Globe, Clock, Moon, Sun, ChevronRight } from 'lucide-react';
+
+import { Card } from "@/components/ui/card";
+
 const Settings = () => {
-  const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className="min-h-screen">
       <div className="max-w-3xl mx-auto p-4">
         <header className="mb-6">
           <h1 className="text-2xl font-bold">Settings</h1>
           <p className="text-sm opacity-75">Manage your account preferences and app settings</p>
         </header>
-        <div className={`rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'} overflow-hidden mb-6`}>
+        <Card className="mb-10">
           <div className="p-4 border-b border-gray-200 flex items-center justify-between">
             <div className="flex items-center">
               <User className="mr-3 text-blue-500" size={20} />
@@ -55,8 +58,8 @@ const Settings = () => {
               </label>
             </div>
           </div>
-        </div>
-        <div className={`rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'} overflow-hidden mb-6`}>
+        </Card>
+        <Card>
           <div className="p-4 border-b border-gray-200 flex items-center justify-between">
             <div className="flex items-center">
               <BarChart className="mr-3 text-green-500" size={20} />
@@ -87,8 +90,8 @@ const Settings = () => {
             </div>
             <ChevronRight size={18} className="opacity-50" />
           </div>
-        </div>
-        <div className={`rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'} overflow-hidden mb-6`}>
+        </Card>
+        <Card>
           <div className="p-4 border-b border-gray-200 flex items-center justify-between">
             <div className="flex items-center">
               <Globe className="mr-3 text-purple-500" size={20} />
@@ -135,7 +138,7 @@ const Settings = () => {
             </div>
             <ChevronRight size={18} className="opacity-50" />
           </div>
-        </div>
+        </Card>
         <div className="mt-6 text-center">
           <button className={`px-4 py-2 rounded-lg ${darkMode ? 'bg-red-500 hover:bg-red-600' : 'bg-red-600 hover:bg-red-700'} text-white`}>
             Sign Out
