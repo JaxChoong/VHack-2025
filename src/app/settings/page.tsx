@@ -16,7 +16,7 @@ const Settings = () => {
           <p className="text-sm opacity-75">Manage your account preferences and app settings</p>
         </header>
         <Card className="mb-10">
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               <User className="mr-3 text-blue-500" size={20} />
               <div>
@@ -26,7 +26,7 @@ const Settings = () => {
             </div>
             <ChevronRight size={18} className="opacity-50" />
           </div>
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               <Lock className="mr-3 text-blue-500" size={20} />
               <div>
@@ -36,7 +36,7 @@ const Settings = () => {
             </div>
             <ChevronRight size={18} className="opacity-50" />
           </div>
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               <Bell className="mr-3 text-blue-500" size={20} />
               <div>
@@ -59,8 +59,8 @@ const Settings = () => {
             </div>
           </div>
         </Card>
-        <Card>
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+        <Card className="mb-10">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               <BarChart className="mr-3 text-green-500" size={20} />
               <div>
@@ -70,7 +70,7 @@ const Settings = () => {
             </div>
             <ChevronRight size={18} className="opacity-50" />
           </div>
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               <Calendar className="mr-3 text-green-500" size={20} />
               <div>
@@ -80,7 +80,7 @@ const Settings = () => {
             </div>
             <ChevronRight size={18} className="opacity-50" />
           </div>
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               <Clock className="mr-3 text-green-500" size={20} />
               <div>
@@ -91,8 +91,8 @@ const Settings = () => {
             <ChevronRight size={18} className="opacity-50" />
           </div>
         </Card>
-        <Card>
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+        <Card className="mb-10">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               <Globe className="mr-3 text-purple-500" size={20} />
               <div>
@@ -102,7 +102,7 @@ const Settings = () => {
             </div>
             <div className="text-sm text-right opacity-75">English</div>
           </div>
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="p-4 flex items-center justify-between">
             <div className="flex items-center">
               {darkMode ? (
                 <Moon className="mr-3 text-purple-500" size={20} />
