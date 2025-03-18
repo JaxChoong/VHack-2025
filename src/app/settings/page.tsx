@@ -75,20 +75,10 @@ const settingsList = [
     children: <div className="text-sm text-right opacity-75">English</div>
   },
   {
-    name: "Appearance",
-    desc: "Toggle dark/light mode",
-    symbol: <Moon className="mr-3 text-purple-500" size={20} />,
-    children: (
-      <div>
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" className="sr-only peer" />
-          <div className={`w-11 h-6 bg-gray-500 rounded-full peer peer-checked:after:translate-x-full
-            peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5
-            after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all
-            peer-checked:bg-purple-500`}></div>
-        </label>
-      </div>
-    )
+    name: "Accessibility",
+    desc: "Configure interface for easier navigation",
+    symbol: <PersonStanding className="mr-3 text-purple-500" size={20} />,
+    children: <ChevronRight size={18} className="opacity-50" />
   },
   {
     name: "About",
