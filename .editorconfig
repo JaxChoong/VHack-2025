@@ -1,0 +1,8 @@
+root = true
+
+charset = UTF-8
+insert_final_newline = false
+trim_trailing_whitespace = true
+
+[*.tsx]
+indent_size = 2
