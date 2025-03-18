@@ -120,11 +120,6 @@ const Settings = () => {
           <SettingsItem {...settingsList[6]} />
           <SettingsItem {...settingsList[7]} />
         </Card>
-        <div className="mt-6 text-center">
-          <button className={`px-4 py-2 rounded-lg ${darkMode ? 'bg-red-500 hover:bg-red-600' : 'bg-red-600 hover:bg-red-700'} text-white`}>
-            Sign Out
-          </button>
-        </div>
       </div>
     </div>
   );
