@@ -1,7 +1,7 @@
 "use client"
 
-import React, { Children, useState } from 'react';
-import { Bell, Lock, User, Shield, Calendar, BarChart, Globe, Clock, Moon, Sun, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Bell, User, Shield, Calendar, BarChart, Globe, Clock, PersonStanding, ChevronRight } from 'lucide-react';
 
 import { Card } from "@/components/ui/card";
 
