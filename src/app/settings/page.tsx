@@ -1,12 +1,103 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import { Bell, Lock, User, Shield, Calendar, BarChart, Globe, Clock, Moon, Sun, ChevronRight } from 'lucide-react';
 
 import { Card } from "@/components/ui/card";
 
+import { cn } from "@/lib/utils";
+
+interface SettingsItemProps {
+  children: React.ReactNode;
+  className?: string;
+  name: string;
+  desc: string;
+  symbol: React.ReactNode;
+}
+
+const SettingsItem = React.forwardRef<HTMLDivElement,SettingsItemProps>(
+  ({ children, className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-4 flex items-center justify-between", className)}>
+    <div className="flex items-center">
+      {props.symbol}
+      <div>
+        <h2 className="font-medium">{props.name}</h2>
+        <p className="text-xs opacity-75">{props.desc}</p>
+      </div>
+    </div>
+    {children}
+  </div>
+));
+
+const settingsList = [
+  {
+    name: "Account Settings",
+    desc: "Manage your profile and account",
+    symbol: <User className="mr-3 text-blue-500" size={20} />,
+    children: <ChevronRight size={18} className="opacity-50" />
+  },
+  {
+    name: "Notifications",
+    desc: "Configure app notifications",
+    symbol: <Bell className="mr-3 text-blue-500" size={20} />,
+    children: <div>
+      <label className="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" className="sr-only peer" />
+        <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full
+                  peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5
+                  after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+                  peer-checked:bg-blue-500`} />
+      </label>
+    </div>
+  },
+  {
+    name: "Health Data",
+    desc: "Manage your health metrics and integrations",
+    symbol: <BarChart className="mr-3 text-green-500" size={20} />,
+    children: <ChevronRight size={18} className="opacity-50" />
+  },
+  {
+    name: "Health Goals",
+    desc: "Set and track your health objectives",
+    symbol: <Calendar className="mr-3 text-green-500" size={20} />,
+    children: <ChevronRight size={18} className="opacity-50" />
+  },
+  {
+    name: "Reminders",
+    desc: "Configure medication and activity reminders",
+    symbol: <Clock className="mr-3 text-green-500" size={20} />,
+    children: <ChevronRight size={18} className="opacity-50" />
+  },
+  {
+    name: "Language",
+    desc: "Choose your preferred language",
+    symbol: <Globe className="mr-3 text-purple-500" size={20} />,
+    children: <div className="text-sm text-right opacity-75">English</div>
+  },
+  {
+    name: "Appearance",
+    desc: "Toggle dark/light mode",
+    symbol: <Moon className="mr-3 text-purple-500" size={20} />,
+    children: (
+      <div>
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" className="sr-only peer" />
+          <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full
+            peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5
+            after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+            peer-checked:bg-purple-500`}></div>
+        </label>
+      </div>
+    )
+  },
+  {
+    name: "About",
+    desc: "App version and legal information",
+    symbol: <Shield className="mr-3 text-purple-500" size={20} />,
+    children: <ChevronRight size={18} className="opacity-50" />
+  }]
+
 const Settings = () => {
-  const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   return (
     <div className="min-h-screen">
@@ -16,128 +107,18 @@ const Settings = () => {
           <p className="text-sm opacity-75">Manage your account preferences and app settings</p>
         </header>
         <Card className="mb-10">
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <User className="mr-3 text-blue-500" size={20} />
-              <div>
-                <h2 className="font-medium">Account Settings</h2>
-                <p className="text-xs opacity-75">Manage your profile and account</p>
-              </div>
-            </div>
-            <ChevronRight size={18} className="opacity-50" />
-          </div>
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <Lock className="mr-3 text-blue-500" size={20} />
-              <div>
-                <h2 className="font-medium">Privacy & Security</h2>
-                <p className="text-xs opacity-75">Manage your data and privacy settings</p>
-              </div>
-            </div>
-            <ChevronRight size={18} className="opacity-50" />
-          </div>
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <Bell className="mr-3 text-blue-500" size={20} />
-              <div>
-                <h2 className="font-medium">Notifications</h2>
-                <p className="text-xs opacity-75">Configure app notifications</p>
-              </div>
-            </div>
-            <div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox"
-                  checked={notifications}
-                  onChange={() => setNotifications(!notifications)}
-                  className="sr-only peer"
-                />
-                <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full
-                  peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5
-                  after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all
-                  peer-checked:bg-blue-500`}></div>
-              </label>
-            </div>
-          </div>
+          <SettingsItem {...settingsList[0]} />
+          <SettingsItem {...settingsList[1]} />
         </Card>
         <Card className="mb-10">
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <BarChart className="mr-3 text-green-500" size={20} />
-              <div>
-                <h2 className="font-medium">Health Data</h2>
-                <p className="text-xs opacity-75">Manage your health metrics and integrations</p>
-              </div>
-            </div>
-            <ChevronRight size={18} className="opacity-50" />
-          </div>
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <Calendar className="mr-3 text-green-500" size={20} />
-              <div>
-                <h2 className="font-medium">Health Goals</h2>
-                <p className="text-xs opacity-75">Set and track your health objectives</p>
-              </div>
-            </div>
-            <ChevronRight size={18} className="opacity-50" />
-          </div>
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <Clock className="mr-3 text-green-500" size={20} />
-              <div>
-                <h2 className="font-medium">Reminders</h2>
-                <p className="text-xs opacity-75">Configure medication and activity reminders</p>
-              </div>
-            </div>
-            <ChevronRight size={18} className="opacity-50" />
-          </div>
+          <SettingsItem {...settingsList[2]} />
+          <SettingsItem {...settingsList[3]} />
+          <SettingsItem {...settingsList[4]} />
         </Card>
         <Card className="mb-10">
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <Globe className="mr-3 text-purple-500" size={20} />
-              <div>
-                <h2 className="font-medium">Language</h2>
-                <p className="text-xs opacity-75">Choose your preferred language</p>
-              </div>
-            </div>
-            <div className="text-sm text-right opacity-75">English</div>
-          </div>
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              {darkMode ? (
-                <Moon className="mr-3 text-purple-500" size={20} />
-              ) : (
-                <Sun className="mr-3 text-purple-500" size={20} />
-              )}
-              <div>
-                <h2 className="font-medium">Appearance</h2>
-                <p className="text-xs opacity-75">Toggle dark/light mode</p>
-              </div>
-            </div>
-            <div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox"
-                  checked={darkMode}
-                  onChange={() => setDarkMode(!darkMode)}
-                  className="sr-only peer"
-                />
-                <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full
-                  peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5
-                  after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all
-                  peer-checked:bg-purple-500`}></div>
-              </label>
-            </div>
-          </div>
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <Shield className="mr-3 text-purple-500" size={20} />
-              <div>
-                <h2 className="font-medium">About</h2>
-                <p className="text-xs opacity-75">App version and legal information</p>
-              </div>
-            </div>
-            <ChevronRight size={18} className="opacity-50" />
-          </div>
+          <SettingsItem {...settingsList[5]} />
+          <SettingsItem {...settingsList[6]} />
+          <SettingsItem {...settingsList[7]} />
         </Card>
         <div className="mt-6 text-center">
           <button className={`px-4 py-2 rounded-lg ${darkMode ? 'bg-red-500 hover:bg-red-600' : 'bg-red-600 hover:bg-red-700'} text-white`}>
