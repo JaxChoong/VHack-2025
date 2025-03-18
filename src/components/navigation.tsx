@@ -43,6 +43,7 @@ export default function Navigation() {
     { name: "Appointments", href: "/appointments", icon: Calendar },
     { name: "Profile", href: "/profile", icon: User },
     { name: "Settings", href: "/settings", icon: Settings },
+    { name: "Mental Health Check", href: "/MentalHealth", icon: Activity },
   ];
 
   if (isLoggedIn === false) {
