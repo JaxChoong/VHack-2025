@@ -57,6 +57,7 @@ export default function Navigation() {
   if (!mounted || isLoggedIn === null) return null; // Prevent hydration mismatch
 
   return (
+
     <>
       {/* Mobile menu button */}
       <button
@@ -135,6 +136,7 @@ export default function Navigation() {
                   <p className="text-sm font-medium text-foreground">John Doe</p>
                   <p className="text-xs text-muted-foreground">Patient</p>
                 </div>
+                
               </div>
               <button
                 onClick={handleLogout}
@@ -144,6 +146,7 @@ export default function Navigation() {
                 Logout
               </button>
             </div>
+
           )}
         </nav>
       </div>
