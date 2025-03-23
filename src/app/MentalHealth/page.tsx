@@ -24,14 +24,14 @@ function MentalHealth() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
                 onClick={() => setActiveSection('breathing')}
-                className={`p-6 rounded-xl border-2 ${currentMood === 'sad' ? 'ring-5 ring-blue-500/100 border-white' : 'border-transparent'} hover:bg-white transition-colors shadow-md cursor-pointer`}
+                className={`p-6 rounded-xl border-2 ${currentMood === 'sad' ? 'ring-5 ring-blue-500/100' : 'border-white'} hover:bg-white transition-colors shadow-md cursor-pointer`}
               >
                 <h3 className="text-xl font-semibold text-purple-600 mb-2">Breathing Exercises</h3>
                 <p className="text-gray-600">Practice guided breathing techniques to reduce stress and anxiety.</p>
               </button>
               <button
                 onClick={() => setActiveSection('mindfulness')}
-                className={`p-6 rounded-xl border-2 ${currentMood === 'sad' ? 'ring-5 ring-blue-500/100 border-white' : 'border-transparent'} hover:bg-white transition-colors shadow-md cursor-pointer`}
+                className={`p-6 rounded-xl border-2 ${currentMood === 'sad' ? 'ring-5 ring-blue-500/100' : 'border-white'} hover:bg-white transition-colors shadow-md cursor-pointer`}
               >
                 <h3 className="text-xl font-semibold text-purple-600 mb-2">Mindfulness & Affirmations</h3>
                 <p className="text-gray-600">Explore daily affirmations and mindfulness practices for mental well-being.</p>
