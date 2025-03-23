@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
 import Link from "next/link";
 import { useTheme } from "next-themes";
 
 export default function SignupPage() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const router = useRouter(); // Initialize useRouter
 
   const [form, setForm] = useState({
     name: "",
@@ -32,9 +34,22 @@ export default function SignupPage() {
       return;
     }
 
+    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    const userExists = existingUsers.some(
+      (user: { email: string }) => user.email === form.email
+    );
+
+    if (userExists) {
+      setError("User with this email already exists!");
+      return;
+    }
+
+    const { confirmPassword, ...newUser } = form;
+
+    localStorage.setItem("users", JSON.stringify([...existingUsers, newUser]));
     setError("");
-    console.log("Signup Data:", form);
-    alert("Signup successful!");
+    alert("Signup successful! ");
+    router.push("/login"); // Redirect to login page
   };
 
   return (
@@ -107,7 +122,11 @@ export default function SignupPage() {
         >
           Already have an account?{" "}
           <Link href="/login" className="hover:underline">
-            {isDark ? <span className="text-white">Log In</span> : <span className="text-black">Log In</span>}
+            {isDark ? (
+              <span className="text-white">Log In</span>
+            ) : (
+              <span className="text-black">Log In</span>
+            )}
           </Link>
         </p>
       </div>

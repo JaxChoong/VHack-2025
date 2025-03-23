@@ -28,20 +28,29 @@ export default function Navigation() {
 
   useEffect(() => {
     setMounted(true);
-    localStorage.setItem("isLoggedIn", "true"); // Force login for testing
-    setIsLoggedIn(true);
+    const loggedInStatus = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedInStatus);
   }, []);
-  
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "true");
+  };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.setItem("isLoggedIn", "false");
     alert("You have been logged out!");
   };
-  
-  
 
-  const navigation = [
+  type NavigationItem = {
+    name: string;
+    href: string;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    onClick?: () => void; // Optional onClick property
+  };
+
+  const navigation: NavigationItem[] = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard },
     { name: "Appointments", href: "/appointments", icon: Calendar },
     { name: "Profile", href: "/profile", icon: User },
@@ -49,7 +58,14 @@ export default function Navigation() {
     { name: "Mental Health Check", href: "/MentalHealth", icon: Activity },
   ];
 
-  if (isLoggedIn === false) {
+  if (isLoggedIn) {
+    navigation.push({
+      name: "Logout",
+      href: "#",
+      icon: LogOut,
+      onClick: handleLogout, // Add an onClick handler for logout
+    });
+  } else {
     navigation.push({ name: "Login", href: "/login", icon: LogIn });
     navigation.push({ name: "Signup", href: "/signup", icon: User });
   }
@@ -57,7 +73,6 @@ export default function Navigation() {
   if (!mounted || isLoggedIn === null) return null; // Prevent hydration mismatch
 
   return (
-
     <>
       {/* Mobile menu button */}
       <button
@@ -80,7 +95,7 @@ export default function Navigation() {
       >
         {/* Logo & Theme Toggle */}
         <div className="flex h-16 shrink-0 items-center px-6 border-b border-border bg-background/95 backdrop-blur-sm">
-          <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full cursor-pointer" onClick={() => (window.location.href = "/")}>
             <Activity className="h-6 w-6 text-foreground" />
             <span className="ml-3 text-lg font-semibold text-foreground">
               HealthDash
@@ -107,7 +122,13 @@ export default function Navigation() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      if (item.onClick) {
+                        e.preventDefault(); // Prevent navigation for logout
+                        item.onClick();
+                      }
+                      setIsMobileMenuOpen(false);
+                    }}
                     className={cn(
                       "group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
                       pathname === item.href
@@ -124,7 +145,7 @@ export default function Navigation() {
           </ul>
 
           {/* User Info & Logout */}
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <div className="mt-auto p-4 border-t border-border bg-background/95 backdrop-blur-sm">
               <div className="flex items-center gap-4 py-3">
                 <img
@@ -136,18 +157,10 @@ export default function Navigation() {
                   <p className="text-sm font-medium text-foreground">John Doe</p>
                   <p className="text-xs text-muted-foreground">Patient</p>
                 </div>
-                
               </div>
-              <button
-                onClick={handleLogout}
-                className="w-full flex items-center gap-x-3 p-3 rounded-md text-sm font-medium text-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors"
-              >
-                <LogOut className="h-5 w-5 shrink-0" />
-                Logout
-              </button>
+              
             </div>
-
-          )}
+          ) : null}
         </nav>
       </div>
 
