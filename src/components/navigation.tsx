@@ -14,6 +14,8 @@ import {
   LogOut,
   Sun,
   Moon,
+  Menu,
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -22,6 +24,7 @@ export default function Navigation() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -54,73 +57,107 @@ export default function Navigation() {
   if (!mounted || isLoggedIn === null) return null; // Prevent hydration mismatch
 
   return (
-    <div className="fixed inset-y-0 left-0 z-50 w-64 bg-background border-r border-border transition-colors">
-      {/* Logo & Theme Toggle */}
-      <div className="flex h-16 shrink-0 items-center px-6 border-b border-border">
-        <Activity className="h-6 w-6 text-foreground" />
-        <span className="ml-3 text-lg font-semibold text-foreground">
-          HealthDash
-        </span>
-        <button
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-          className="ml-auto p-2 rounded-md hover:bg-muted"
-        >
-          {resolvedTheme === "dark" ? (
-            <Sun className="h-5 w-5 text-yellow-500" />
-          ) : (
-            <Moon className="h-5 w-5 text-gray-500" />
+
+    <>
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-background/95 backdrop-blur-sm border border-border shadow-sm md:hidden hover:bg-accent"
+      >
+        {isMobileMenuOpen ? (
+          <X className="h-6 w-6" />
+        ) : (
+          <Menu className="h-6 w-6" />
+        )}
+      </button>
+
+      {/* Sidebar */}
+      <div
+        className={cn(
+          "fixed inset-y-0 left-0 z-40 w-64 bg-background/95 backdrop-blur-sm border-r border-border shadow-lg transition-transform duration-300 ease-in-out",
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        )}
+      >
+        {/* Logo & Theme Toggle */}
+        <div className="flex h-16 shrink-0 items-center px-6 border-b border-border bg-background/95 backdrop-blur-sm">
+          <div className="flex items-center justify-center w-full">
+            <Activity className="h-6 w-6 text-foreground" />
+            <span className="ml-3 text-lg font-semibold text-foreground">
+              HealthDash
+            </span>
+          </div>
+          <button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="absolute right-4 p-2 rounded-md hover:bg-accent"
+          >
+            {resolvedTheme === "dark" ? (
+              <Sun className="h-5 w-5 text-yellow-500" />
+            ) : (
+              <Moon className="h-5 w-5 text-gray-500" />
+            )}
+          </button>
+        </div>
+
+        {/* Navigation Links */}
+        <nav className="flex flex-1 flex-col bg-background/95 backdrop-blur-sm">
+          <ul role="list" className="flex flex-1 flex-col gap-1 p-4">
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              return (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
+                      pathname === item.href
+                        ? "bg-accent text-accent-foreground"
+                        : "text-foreground"
+                    )}
+                  >
+                    <Icon className="h-5 w-5 shrink-0" />
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* User Info & Logout */}
+          {isLoggedIn && (
+            <div className="mt-auto p-4 border-t border-border bg-background/95 backdrop-blur-sm">
+              <div className="flex items-center gap-4 py-3">
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt="User"
+                  className="h-8 w-8 rounded-full bg-muted"
+                />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-foreground">John Doe</p>
+                  <p className="text-xs text-muted-foreground">Patient</p>
+                </div>
+                
+              </div>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center gap-x-3 p-3 rounded-md text-sm font-medium text-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors"
+              >
+                <LogOut className="h-5 w-5 shrink-0" />
+                Logout
+              </button>
+            </div>
+
           )}
-        </button>
+        </nav>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="flex flex-1 flex-col">
-        <ul role="list" className="flex flex-1 flex-col gap-1 p-4">
-          {navigation.map((item) => {
-            const Icon = item.icon;
-            return (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-medium hover:bg-gray-800 hover:text-white",
-                    pathname === item.href
-                      ? "bg-gray-800 text-white"
-                      : "text-black-400"
-                  )}
-                >
-                  <Icon className="h-5 w-5 shrink-0" />
-                  {item.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* User Info & Logout */}
-        {isLoggedIn && (
-          <div className="mt-auto p-4 border-t border-border">
-            <div className="flex items-center gap-4 py-3">
-              <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="User"
-                className="h-8 w-8 rounded-full bg-muted"
-              />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-foreground">John Doe</p>
-                <p className="text-xs text-muted-foreground">Patient</p>
-              </div>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center gap-x-3 p-3 rounded-md text-sm font-medium text-destructive hover:bg-red-600 hover:text-white transition"
-            >
-              <LogOut className="h-5 w-5 shrink-0" />
-              Logout
-            </button>
-          </div>
-        )}
-      </nav>
-    </div>
+      {/* Overlay for mobile */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-background/80 backdrop-blur-sm md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+    </>
   );
 }
