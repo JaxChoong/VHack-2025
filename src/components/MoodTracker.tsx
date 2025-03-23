@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns';
 import { SmilePlus, Meh, Frown } from 'lucide-react';
 
@@ -9,7 +9,11 @@ interface MoodEntry {
   mood: Mood;
 }
 
-function MoodTracker() {
+interface MoodTrackerProps {
+  onMoodChange: (mood: Mood) => void;
+}
+
+function MoodTracker({ onMoodChange }: MoodTrackerProps) {
   const [moodEntries, setMoodEntries] = useState<MoodEntry[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
@@ -28,6 +32,12 @@ function MoodTracker() {
       return [...filtered, { date, mood }];
     });
   };
+
+  // Use useEffect to call onMoodChange after moodEntries is updated
+  useEffect(() => {
+    const latestMood = moodEntries.length > 0 ? moodEntries[moodEntries.length - 1].mood : null;
+    onMoodChange(latestMood);
+  }, [moodEntries, onMoodChange]);
 
   const getMoodIcon = (mood: Mood) => {
     switch (mood) {
