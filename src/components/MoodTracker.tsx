@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns';
 import { SmilePlus, Meh, Frown } from 'lucide-react';
 
@@ -9,7 +9,11 @@ interface MoodEntry {
   mood: Mood;
 }
 
-function MoodTracker() {
+interface MoodTrackerProps {
+  onMoodChange: (mood: Mood) => void;
+}
+
+function MoodTracker({ onMoodChange }: MoodTrackerProps) {
   const [moodEntries, setMoodEntries] = useState<MoodEntry[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
@@ -29,14 +33,20 @@ function MoodTracker() {
     });
   };
 
+  // Use useEffect to call onMoodChange after moodEntries is updated
+  useEffect(() => {
+    const latestMood = moodEntries.length > 0 ? moodEntries[moodEntries.length - 1].mood : null;
+    onMoodChange(latestMood);
+  }, [moodEntries, onMoodChange]);
+
   const getMoodIcon = (mood: Mood) => {
     switch (mood) {
       case 'happy':
-        return <SmilePlus className="w-6 h-6 text-green-500" />;
+        return <SmilePlus className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-green-500" />;
       case 'neutral':
-        return <Meh className="w-6 h-6 text-yellow-500" />;
+        return <Meh className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-yellow-500" />;
       case 'sad':
-        return <Frown className="w-6 h-6 text-red-500" />;
+        return <Frown className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-red-500" />;
       default:
         return null;
     }
@@ -56,13 +66,13 @@ function MoodTracker() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="rounded-xl shadow-md p-6 border-2 border-white">
-        <h2 className="text-2xl font-semibold text-white-800 mb-4">Mood Calendar</h2>
+    <div className="space-y-8 p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6">
+      <div className="rounded-xl shadow-md p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 border-2 border-white">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white-800 mb-4">Mood Calendar</h2>
         <div className="text-center mb-4">
-          <h3 className="text-xl font-medium">{format(selectedDate, 'MMMM yyyy')}</h3>
+          <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-white-700">{format(selectedDate, 'MMMM yyyy')}</h3>
         </div>
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-1 sm:gap-2 md:gap-3 lg:gap-4">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
             <div key={day} className="text-center font-medium text-white-500 py-2">
               {day}
@@ -71,9 +81,9 @@ function MoodTracker() {
           {days.map(day => (
             <div
               key={day.toString()}
-              className={`aspect-square border rounded-lg p-2 hover:bg-purple-50 transition-colors hover:text-black ${getMoodClass(getMoodForDate(day))}`}
+              className={`aspect-square border rounded-lg p-1 sm:p-2 md:p-3 lg:p-4 hover:bg-purple-50 transition-colors hover:text-black ${getMoodClass(getMoodForDate(day))}`}
             >
-              <div className="text-sm mb-1">{format(day, 'd')}</div>
+              <div className="text-xs sm:text-sm md:text-base lg:text-lg mb-1 text-white-700">{format(day, 'd')}</div>
               <div className="flex justify-center space-x-1">
                 {getMoodIcon(getMoodForDate(day))}
                 {!getMoodForDate(day) && (
@@ -82,19 +92,19 @@ function MoodTracker() {
                       onClick={() => setMoodForDate(day, 'happy')}
                       className="hover:scale-110 transition-transform cursor-pointer"
                     >
-                      <SmilePlus className="w-6 h-6 text-gray-400 hover:text-green-500" />
+                      <SmilePlus className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-gray-400 hover:text-green-500" />
                     </button>
                     <button
                       onClick={() => setMoodForDate(day, 'neutral')}
                       className="hover:scale-110 transition-transform cursor-pointer"
                     >
-                      <Meh className="w-6 h-6 text-gray-400 hover:text-yellow-500" />
+                      <Meh className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-gray-400 hover:text-yellow-500" />
                     </button>
                     <button
                       onClick={() => setMoodForDate(day, 'sad')}
                       className="hover:scale-110 transition-transform cursor-pointer"
                     >
-                      <Frown className="w-6 h-6 text-gray-400 hover:text-red-500" />
+                      <Frown className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-gray-400 hover:text-red-500" />
                     </button>
                   </div>
                 )}
