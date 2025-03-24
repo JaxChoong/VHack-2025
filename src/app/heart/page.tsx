@@ -74,7 +74,7 @@ export default function HeartHealth() {
       time += 0.02; // Time increment
       
       // Generate PQRST waveform
-      let value = 70; // Baseline
+      let value = 20; // Baseline
       
       // P wave
       if (time % 1 < 0.2) {
@@ -83,7 +83,7 @@ export default function HeartHealth() {
       // QRS complex
       else if (time % 1 < 0.3) {
         const qrs = (time % 1 - 0.2) / 0.1;
-        value += qrs < 0.5 ? -30 * Math.sin(Math.PI * qrs) : 60 * Math.sin(Math.PI * qrs);
+        value += qrs < 0.5 ? -10 * Math.sin(Math.PI * qrs) : 80 * Math.sin(Math.PI * qrs);
       }
       // T wave
       else if (time % 1 < 0.6) {
