@@ -61,34 +61,55 @@ export default function HeartHealth() {
     setLastUpdate(new Date().toLocaleTimeString());
     const interval = setInterval(() => {
       setLastUpdate(new Date().toLocaleTimeString());
-    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+    }, 5 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Simulate ECG data stream (client-side only)
+  // Simulate realistic ECG data stream
   useEffect(() => {
     if (isECGView) {
+      let time = 0;
       ecgIntervalRef.current = setInterval(() => {
-        const newDataPoint = {
-          time: new Date().toLocaleTimeString(),
-          value: Math.floor(Math.random() * 100) + 50, // Random ECG-like values
-        };
-        setEcgData((prevData) => {
-          const newData = [...prevData, newDataPoint];
-          return newData.slice(-50); // Keep only the last 50 data points
-        });
-      }, 200); // Add a new data point every 200ms
+      time += 0.02; // Time increment
+      
+      // Generate PQRST waveform
+      let value = 20; // Baseline
+      
+      // P wave
+      if (time % 1 < 0.2) {
+        value += 10 * Math.sin(Math.PI * (time % 1) / 0.2);
+      }
+      // QRS complex
+      else if (time % 1 < 0.3) {
+        const qrs = (time % 1 - 0.2) / 0.1;
+        value += qrs < 0.5 ? -10 * Math.sin(Math.PI * qrs) : 80 * Math.sin(Math.PI * qrs);
+      }
+      // T wave
+      else if (time % 1 < 0.6) {
+        value += 15 * Math.sin(Math.PI * (time % 1 - 0.3) / 0.3);
+      }
+
+      const newDataPoint = {
+        time: new Date().toLocaleTimeString(),
+        value: value + Math.random() * 2 // Add small random noise
+      };
+
+      setEcgData(prevData => {
+        const newData = [...prevData, newDataPoint];
+        return newData.slice(-100); // Keep last 100 points
+      });
+      }, 20); // 50Hz sampling rate
 
       return () => {
-        if (ecgIntervalRef.current) {
-          clearInterval(ecgIntervalRef.current);
-        }
+      if (ecgIntervalRef.current) {
+        clearInterval(ecgIntervalRef.current);
+      }
       };
     } else {
-      setEcgData([]); // Clear ECG data when switching back to normal chart
+      setEcgData([]);
     }
-  }, [isECGView]);
+    }, [isECGView]);
 
   // Log chart data for debugging
   console.log("Chart Data:", isECGView ? ecgData : testData);

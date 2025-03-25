@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const [isDark, setIsDark] = useState(false);
+  const [isClient, setIsClient] = useState(false); // Track client-side rendering
   const router = useRouter();
+
+  useEffect(() => {
+    // Ensure theme and other client-side logic are only accessed on the client
+    setIsDark(theme === "dark");
+    setIsClient(true);
+  }, [theme]);
 
   const generateCaptcha = () => {
     return Math.random().toString(36).substring(2, 8); // Generate a random 6-character string
@@ -21,7 +28,12 @@ export default function LoginPage() {
   });
 
   const [error, setError] = useState("");
-  const [captcha, setCaptcha] = useState(generateCaptcha());
+  const [captcha, setCaptcha] = useState("");
+
+  useEffect(() => {
+    // Generate captcha only on the client
+    setCaptcha(generateCaptcha());
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -53,6 +65,11 @@ export default function LoginPage() {
     router.push("/"); // Redirect to the dashboard
     window.location.reload(); // Refresh the page after redirect
   };
+
+  if (!isClient) {
+    // Avoid rendering until client-side environment is ready
+    return null;
+  }
 
   return (
     <div
